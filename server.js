@@ -5,19 +5,19 @@ const cors = require("cors");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const passport = require("./config/passport"); // Import your passport configuration
+const corsOptions = require("./config/corsOptions"); // Import the CORS configuration
+const credentials = require("./config/credentials"); // Import the credentials handling
 
 dotenv.config();
 connectDB();
 
 const app = express();
 
-app.use(
-  cors({
-    origin: "https://imaginative-puffpuff-805543.netlify.app/",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
+// Handle credentials checking before CORS
+app.use(credentials);
+
+// CORS middleware with dynamic origin checking
+app.use(cors(corsOptions));
 
 app.use(
   session({
