@@ -26,6 +26,9 @@ app.use(
     saveUninitialized: true,
   })
 );
+app.get("/", (req, res) => {
+  res.send({ message: "everything is fine " });
+});
 app.use(passport.initialize());
 app.use(passport.session());
 
