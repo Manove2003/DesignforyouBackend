@@ -133,7 +133,7 @@ exports.googleCallback = async (req, res) => {
 
     // Redirect to the frontend with the token and current role
     res.redirect(
-      `https://imaginative-puffpuff-805543.netlify.app/welcome?token=${token}&role=${user.role}`
+      `http://localhost:3000/welcome?token=${token}&role=${user.role}`
     );
   } catch (error) {
     console.error("Google callback error:", error);
@@ -147,9 +147,7 @@ exports.facebookCallback = async (req, res) => {
   try {
     const user = req.user;
     const token = generateToken(user);
-    res.redirect(
-      `https://imaginative-puffpuff-805543.netlify.app/?token=${token}`
-    ); // Fixed URL format
+    res.redirect(`http://localhost:3000?token=${token}`); // Fixed URL format
   } catch (error) {
     console.error("Facebook callback error:", error);
     res
