@@ -8,9 +8,11 @@ var corsOptions = {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {
+      console.error(`Blocked by CORS: Origin ${origin}`);
       callback(new Error("Not allowed by CORS"));
     }
   },
+  credentials: true, // Make sure credentials are passed in CORS requests
 };
 
 module.exports = corsOptions;

@@ -16,24 +16,31 @@ const app = express();
 // Handle credentials checking before CORS
 app.use(credentials);
 
-// CORS middleware with dynamic origin checking
+// CORS middleware with dynamic origin checking and improved logging
 app.use(cors(corsOptions));
 
+// Express body parsing middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Session configuration with a dedicated SESSION_SECRET
 app.use(
   session({
-    secret: process.env.JWT_SECRET,
+    secret: process.env.SESSION_SECRET || "defaultsecret",
     resave: false,
     saveUninitialized: true,
   })
 );
+
 app.get("/", (req, res) => {
-  res.send({ message: "everything is fine " });
+  res.send({ message: "Everything is fine" });
 });
+
+// Passport initialization
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.json());
-
+// Authentication routes
 app.use("/api/auth", authRoutes);
 
 const PORT = process.env.PORT || 5000;
