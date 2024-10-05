@@ -1,5 +1,5 @@
 const whitelist = [
-  "https://imaginative-puffpuff-805543.netlify.app/", // Your frontend production URL
+  "https://imaginative-puffpuff-805543.netlify.app", // Your frontend production URL
   "http://localhost:3000", // For local development
 ];
 
