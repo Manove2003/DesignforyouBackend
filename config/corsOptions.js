@@ -5,14 +5,15 @@ const whitelist = [
 
 var corsOptions = {
   origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1 || !origin) {
+    // Allow if origin is in whitelist or if origin is undefined (e.g., Postman or non-browser requests)
+    if (whitelist.includes(origin) || !origin) {
       callback(null, true);
     } else {
       console.error(`Blocked by CORS: Origin ${origin}`);
       callback(new Error("Not allowed by CORS"));
     }
   },
-  credentials: true, // Make sure credentials are passed in CORS requests
+  credentials: true, // Ensure credentials are passed in CORS requests
 };
 
 module.exports = corsOptions;

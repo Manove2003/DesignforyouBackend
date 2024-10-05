@@ -4,13 +4,16 @@ const whitelist = [
 ];
 
 const credentials = (req, res, next) => {
-  const origin = req.headers.origin;
+  const origin = req.headers.origin || "undefined";
   console.log("Origin: " + origin);
-  if (whitelist.includes(origin)) {
+
+  if (whitelist.includes(origin) || origin === "undefined") {
+    // Allow Access-Control-Allow-Credentials for whitelisted origins or undefined origins
     res.header("Access-Control-Allow-Credentials", true);
   } else {
     console.log(`Origin ${origin} not in whitelist`);
   }
+
   next();
 };
 

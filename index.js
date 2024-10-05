@@ -23,15 +23,19 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Session configuration with a dedicated SESSION_SECRET
+const MongoStore = require("connect-mongo");
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET || "defaultsecret",
     resave: false,
     saveUninitialized: true,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URI, // Use your MongoDB URI
+      ttl: 14 * 24 * 60 * 60, // Sessions expire in 14 days (can adjust this)
+    }),
   })
 );
-
 app.get("/", (req, res) => {
   res.send({ message: "Everything is fine" });
 });
