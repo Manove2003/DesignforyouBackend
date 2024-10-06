@@ -132,9 +132,8 @@ exports.googleCallback = async (req, res) => {
     const token = generateToken(user);
 
     // Redirect to the frontend with the token and current role
-    res.redirect(
-      `https://imaginative-puffpuff-805543.netlify.app/welcome?token=${token}&role=${user.role}`
-    );
+    res.redirect("https://imaginative-puffpuff-805543.netlify.app/welcome");
+    // `https://imaginative-puffpuff-805543.netlify.app/welcome?token=${token}&role=${user.role}`
   } catch (error) {
     console.error("Google callback error:", error);
     res
